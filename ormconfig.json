@@ -1,0 +1,8 @@
+{
+  "entities": ["dist/entities/*.js"],
+  "migrations": ["dist/database/migrations/*.js"],
+  "cli": {
+    "migrationDir": "dist/database/migrations",
+    "entitiesDir": "dist/entities"
+  }
+}
