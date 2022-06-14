@@ -20,6 +20,6 @@ export class CreateNotesController {
     });
     const results = await notesRepository.save(note);
 
-    return response.status(200).json({ data: results })
+    return response.status(200).json({ data: results, message: "Successful registered annotation." })
   }
 }
