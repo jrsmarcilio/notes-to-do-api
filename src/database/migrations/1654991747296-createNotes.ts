@@ -19,6 +19,11 @@ export class createNotes1654991747296 implements MigrationInterface {
             length: "500",
           },
           {
+            name: "name",
+            type: "varchar",
+            length: "50",
+          },
+          {
             name: "is_active",
             type: "tinyint",
             width: 1,

@@ -9,6 +9,9 @@ class Notes {
   @Column({ name: "notes", type: "varchar"})
   notes: string;
 
+  @Column({ name: "name", type: "varchar"})
+  name: string;
+
   @Column({ name: "is_active", type: "tinyint", default: 1 })
   isActive: boolean;
 

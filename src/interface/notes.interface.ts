@@ -10,6 +10,7 @@ export enum priorityEnum {
 export interface INotes {
   id: number;
   notes: string;
+  name: string;
   isActive: boolean;
   dueDate: Date;
   priority: priorityEnum;

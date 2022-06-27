@@ -1,25 +1,30 @@
 import { Request, Response } from "express";
+import { StatusCodes } from "http-status-codes";
 import dataSource from "../../config/database.config";
 import { Notes } from "../../entities";
 import { priorityEnum } from "../../interface/notes.interface";
+const { OK, UNAUTHORIZED } = StatusCodes;
 
 export class CreateNotesController {
   async handle(request: Request, response: Response) {
-    const { notes, dueDate, priority } = request.body;
-    console.log(!notes || !dueDate || !priority);
+    const { notes, name, dueDate, priority } = request.body;
 
-    if(!notes || !dueDate || !priority || !Object.values(priorityEnum).includes(priority))
-      return response.status(400).json({ error: true, message: "Data for creating the annotation is invalid" });
+    if(!name || !dueDate || !priority || !Object.values(priorityEnum).includes(priority))
+      return response.status(UNAUTHORIZED).json({
+        error: true,
+        message: "Data for creating the annotation is invalid"
+      });
 
     const notesRepository = dataSource.getRepository(Notes);
 
     const note = notesRepository.create({
+      name,
       notes,
       priority,
       dueDate: new Date(dueDate),
     });
     const results = await notesRepository.save(note);
 
-    return response.status(200).json({ data: results, message: "Successful registered annotation." })
+    return response.status(OK).json({ data: results, message: "Successful registered annotation." })
   }
 }
