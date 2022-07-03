@@ -7,7 +7,7 @@ const { OK, UNAUTHORIZED } = StatusCodes;
 
 export class UpdateNotesController {
   async update(request: Request, response: Response) {
-    const { id, notes, name, dueDate, priority } = request.body;
+    const { id, notes, name, dueDate, priority, isActive, done } = request.body;
 
     if(!id || !name || !dueDate || !priority || !Object.values(priorityEnum).includes(priority))
       return response.status(UNAUTHORIZED).json({
@@ -17,20 +17,21 @@ export class UpdateNotesController {
 
     const notesRepository = dataSource.getRepository(Notes);
 
-      const note = await notesRepository.findOne({ where: { id } });
-      if(!note) return response.status(UNAUTHORIZED).json({ message: "Annotation not found." });
+    const note = await notesRepository.findOne({ where: { id } });
+    if(!note) return response.status(UNAUTHORIZED).json({ message: "Annotation not found." });
 
-    const noteUpdated = await notesRepository.update(
-      { id },
-      {
-        name: name || note?.name,
-        notes: notes || note?.notes,
-        dueDate: dueDate || note?.dueDate,
-        priority: priority || note?.priority,
-      }
-    );
+    note.name = name || note?.name;
+    note.notes = notes || note?.notes;
+    note.dueDate = dueDate || note?.dueDate;
+    note.priority = priority || note?.priority;
+    note.isActive = isActive || note.isActive;
+    note.done = done || note.done;
 
-    if (noteUpdated.affected == 1) return response.status(OK).json({ message: "Successful updated annotation." });
+    const noteUpdated = await notesRepository.save(note);
+
+    if (noteUpdated) return response.status(OK).json({ 
+      data: noteUpdated, message: "Successful updated annotation."
+    });
     else return response.status(UNAUTHORIZED).json({ message: "Error updated annotation." });
   }
 }

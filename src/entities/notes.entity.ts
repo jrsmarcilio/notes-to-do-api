@@ -15,6 +15,9 @@ class Notes {
   @Column({ name: "is_active", type: "tinyint", default: 1 })
   isActive: boolean;
 
+  @Column({ name: "done", type: "tinyint", default: 0 })
+  done: boolean;
+
   @Column({ name: "due_date" })
   dueDate: Date;
 

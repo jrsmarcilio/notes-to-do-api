@@ -31,6 +31,13 @@ export class createNotes1654991747296 implements MigrationInterface {
             isNullable: false,
           },
           {
+            name: "done",
+            type: "tinyint",
+            width: 1,
+            default: 0,
+            isNullable: false,
+          },
+          {
             name: "priority",
             type: "varchar"
           },

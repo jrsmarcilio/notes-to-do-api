@@ -16,4 +16,5 @@ export interface INotes {
   priority: priorityEnum;
   createdAt: Date;
   updatedAt: Date;
+  done: boolean;
 }

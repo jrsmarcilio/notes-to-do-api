@@ -17,7 +17,7 @@ const routes = Router();
 routes.post("/notes", createNotes.handle);
 routes.get("/notes", showNotes.index);
 routes.get("/note/:id", showNotes.showById);
-routes.put("/note", updateNotes.update);
+routes.put("/notes", updateNotes.update);
 routes.delete("/note/:id", deleteNotes._delete);
 
 routes.get("/", (request: Request, response: Response) => {
